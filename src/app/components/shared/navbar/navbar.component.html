@@ -12,20 +12,23 @@
 
 		<ul class="nav nav-pills flex-column sidebar-nav">
 			<li class="nav-item">
-				<a class="nav-link active" href="">
+				<a class="nav-link " 
+					[routerLink]="['mascota/listar']" [routerLinkActive]="'active'">
 					<em class="fa fa-paw fa-3x"></em> 
 					Mascotas 
 					<span class="sr-only">(current)</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">
+				<a class="nav-link"  
+					[routerLink]="['vacuna/listar']" [routerLinkActive]="'active'">
 					<em class="fa fa-medkit fa-2x"></em> 
 					Vacunas
 				</a>
 			</li>
 			<li class="nav-item">	
-				<a class="nav-link" href="">
+				<a class="nav-link" 
+					[routerLink]="['adopcion/listar']" [routerLinkActive]="'active'">
 					<em class="fa fa-book fa-2x"></em> 
 					Solicitudes de adopción
 				</a>
