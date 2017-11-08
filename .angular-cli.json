@@ -28,7 +28,11 @@
       "scripts": [
          "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/tether/dist/js/tether.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+         "assets/js/bootstrap-datepicker.js",
+         "assets/js/custom.js",
+         "assets/js/html5shiv.min.js",
+          "assets/js/respond.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
