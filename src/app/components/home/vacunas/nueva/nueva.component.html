@@ -1,3 +1,45 @@
-<p>
-  nueva works!
-</p>
+<div class="col-md-12">
+	<form [formGroup]="forma"
+        type="post"
+        enctype= "multipart/form-data"
+        (ngSubmit)="guardar()">
+	  <div  class="form-group" id="ControlCorreo"
+          [ngClass]="{'has-danger': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
+	    <label for="formGroupLogin">Nombre</label>
+	    <input  type="text" class="form-control" id="formGroupLogin" placeholder="Nombre"
+              formControlName="nombre">
+      	<div
+	        *ngIf="forma.get('nombre').errors?.required && forma.get('nombre').touched"
+	        class="form-control-feedback">
+	        El nombre es necesario
+     	 </div>
+	  </div>
+	  <!--Fin Correo-->
+	  <div  class="form-group"
+         [ngClass]="{'has-danger': !forma.controls['fecha'].valid  && forma.controls['fecha'].touched}">
+	    <label for="formGroupLogin">Fecha de vencimiento</label>
+	    <input type="date" class="form-control" id="formGroupLogin" 
+             formControlName="fecha">
+      <div
+        *ngIf="forma.get('fecha').errors?.required && forma.get('fecha').touched"
+        class="form-control-feedback">
+        La fecha de vencimiento es requerida
+
+      </div>
+      
+	  </div>
+	  <div  class="form-group" id="ControlCorreo"
+          [ngClass]="{'has-danger': !forma.controls['funcion'].valid  && forma.controls['funcion'].touched}">
+	    <label for="formGroupLogin">Indicaciones</label>
+	    <textarea  type="text" class="form-control" id="formGroupLogin" placeholder="Nombre"
+              formControlName="funcion"></textarea>
+      	<div
+	        *ngIf="forma.get('funcion').errors?.required && forma.get('funcion').touched"
+	        class="form-control-feedback">
+	        El funcion es necesario
+     	 </div>
+	  </div>
+	  <button type="submit">Guardar</button>
+
+	</form>
+	<!--Fin del form-->

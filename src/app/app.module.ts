@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -29,6 +29,14 @@ import { AdopcionService } from './services/adopcion.service';
 //Routes
 import { APP_ROUTING } from './app.routes';
 
+//firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+//environment
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,12 +59,16 @@ import { APP_ROUTING } from './app.routes';
     BrowserModule,
     FormsModule,
     HttpModule,
-    APP_ROUTING
+    APP_ROUTING,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    ReactiveFormsModule
   ],
   providers: [
     MascotaService ,
     VacunaService,
-    AdopcionService 
+    AdopcionService,
+    AngularFireAuth 
   ],
   bootstrap: [AppComponent]
 })
