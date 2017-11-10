@@ -8,13 +8,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class NuevaVComponent implements OnInit {
 	 forma: FormGroup; //El formulario
-  usuario:  {
-
-    nombre: '',
-    fecha: '',
-    funcion: ''
-
-  };
   alerta:boolean = false;
   constructor(public db: AngularFireDatabase) {
   		 this.forma = new FormGroup({
