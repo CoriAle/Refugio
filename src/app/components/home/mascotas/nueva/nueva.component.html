@@ -1,29 +1,146 @@
-<div class="row">
-	<div class="col-md-4">
-		<h3>Seleccione la foto</h3>
-		<div 	NgDropFiles 
-				[ngClass] = "{'file-over': estaSobreDropZone}"
-				(archivoSobre) ="archivoSobreDropZone($event)"
-				(archivoDrop) = "archivoDrop($event)" 
-				 [archivos]="archivos"
-				class="well drop-zone">
-			<h4>Suelta la imágen aquí</h4>
-			<img src="/assets/img/drop-images.png">
+<div class="col-md-10 offset-1">
+  <div class="card">
+    <div class="card-block p-5">
+    <div class="alert alert-success m-2 animated fadeIn slow" role="alert" *ngIf="alerta">
+      <strong>Persona nueva guardada</strong> 
+    </div>
+		<form [formGroup]="forma"
+	        type="post"
+	        enctype= "multipart/form-data"
+	        (ngSubmit)="guardar()">
+	     	<h2><em class="fa fa-medkit "></em> Nueva vacuna</h2>
+			<br>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
+		    <label for="formGroupLogin">Nombre</label>
+		    <input  type="text" class="form-control" id="formGroupLogin" placeholder="Nombre"
+	              formControlName="nombre">
+	      	<div
+		        *ngIf="forma.get('nombre').errors?.required && forma.get('nombre').touched"
+		        class="form-control-feedback">
+		        El nombre es necesario
+	     	 </div>
+		  </div>
+		  <div class="row">
+		  		 <div  class="form-group col-6" id="ControlCorreo"
+			          [ngClass]="{'has-danger': !forma.controls['genero'].valid  && forma.controls['genero'].touched}">
+				    <label for="formGroupLogin">Género</label>
+				    <select  class="form-control" id="formGroupLogin" placeholder="genero" formControlName="genero">
+			              	<option>Femenino</option>
+			              	<option>Masculino</option>
+			              </select>
+			      	<div
+				        *ngIf="forma.get('genero').errors?.required && forma.get('genero').touched"
+				        class="form-control-feedback">
+				        El género es necesario
+			     	 </div>
+				  </div>
+				  <!--Fin Correo-->
+					<div  class="form-group col-md-6"
+			         [ngClass]="{'has-danger': !forma.controls['edad'].valid  && forma.controls['edad'].touched}">
+				    <label for="formGroupLogin">Edad</label>
+				    <input type="number" class="form-control" id="formGroupLogin" 
+			             formControlName="edad">
+			      <div
+			        *ngIf="forma.get('edad').errors?.required && forma.get('edad').touched"
+			        class="form-control-feedback">
+			        La edad  es requerida
+
+			      </div>
+			      
+		  		</div>
+		  </div>
+		 
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['fecha_rescate'].valid  && forma.controls['fecha_rescate'].touched}">
+		    <label for="formGroupLogin">Correo electrónico</label>
+		    <input  type="date" class="form-control" id="formGroupLogin" 
+	              formControlName="fecha_rescate">
+	      	<div
+		        *ngIf="forma.get('fecha_rescate').errors?.required && forma.get('fecha_rescate').touched"
+		        class="form-control-feedback">
+		       La fecha de rescate es necesaria
+	     	 </div>
+	     
+		  </div>
+		  
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['persona'].valid  && forma.controls['persona'].touched}">
+		    <label for="formGroupLogin">Persona</label>
+		    <select  class="form-control" id="formGroupLogin" 
+	              formControlName="persona">
+	              	<option [value]="item.key" 
+	              			*ngFor="let item of items| async">
+	              		{{item.nombre}} {{item.apellido}}
+	              	</option>
+	        </select> 
+	      	<div
+		        *ngIf="forma.get('persona').errors?.required && forma.get('persona').touched"
+		        class="form-control-feedback">
+		        El persona es necesario
+	     	 </div>
+		  </div>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['vacuna'].valid  && forma.controls['vacuna'].touched}">
+		    <label for="formGroupLogin">Vacuna</label>
+		    <select multiple class="form-control" id="formGroupLogin" 
+	              formControlName="vacuna">
+              		<option [value]="item.key" 
+              			*ngFor="let item of vacunas| async">
+              			{{item.nombre}} 
+              		</option>
+	        </select> 
+	      	<div
+		        *ngIf="forma.get('vacuna').errors?.required && forma.get('vacuna').touched"
+		        class="form-control-feedback">
+		        El número de mascotas es necesario
+	     	 </div>
+		  </div>
+		 <!-- Comienzo Control de imágenes-->
+		 <div class="form-group">
+		 <label >Seleccione la foto</label>
+				<div class="col-md-6 offset-3">
+					
+					
+					<div 	NgDropFiles 
+							[ngClass] = "{'file-over': estaSobreDropZone}"
+							(archivoSobre) ="archivoSobreDropZone($event)"
+							(archivoDrop) = "archivoDrop($event)" 
+							 [archivos]="archivos"
+							class="well drop-zone">
+						<h4>Suelta la imágen aquí</h4>
+						<img src="/assets/img/drop-images.png">
+					</div>
+					<div  class="mt-2"style="margin-bottom: 40px">
+					<!--
+					<button type="button" class="btn btn-success"
+						(click)="cargarImagenesFirebase()"
+						[disabled]= "archivos.length == 0 || !permiteCargar">
+						Cargar
+					</button>
+					<button type="button" class="btn btn-danger"
+						(click)="limpiarArchivos()"
+						>
+						Cancelar
+					</button>
+					-->
+				</div>
+				</div>
+			
+			
+			</div>
+		  <button 
+			  type="submit" 
+			  class="btn btn-primary float-right"
+			 [disabled]= "!forma.valid || archivos.length == 0 || !permiteCargar"
+		  >Guardar
+		  </button>
+
+		</form>
 		</div>
 	</div>
-	<div class="col-md-8" style="margin-bottom: 40px">
-		<h3>Cargar Archivos</h3>
-		<button type="button" class="btn btn-success"
-			(click)="cargarImagenesFirebase()"
-			[disabled]= "archivos.length == 0 || !permiteCargar">
-			Cargar
-		</button>
-		<button type="button" class="btn btn-danger"
-			(click)="limpiarArchivos()"
-			>
-			Cancelar
-		</button>
-
-	</div>
-	
 </div>
+
+
+
+

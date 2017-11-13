@@ -16,7 +16,7 @@ export class MascotaService {
   	return this.af.list(`/${ this.CARPETA_IMAGENES }`)
   }
 
-  cargar_imagenes_firebase(archivos: FileItem[]){
+  cargar_imagenes_firebase(archivos: FileItem[], mascota: any){
   	console.log(archivos);
   	let storageRef = firebase.storage().ref();
   	for( let item of archivos){
@@ -30,14 +30,16 @@ export class MascotaService {
   				console.log("exito")
   				item.url = uploadTask.snapshot.downloadURL;
   				item.estaSubiendo = false;
-  				this.guardarImagen({nombre: item.nombreArchivo, url: item.url});
+          mascota.imagen = item.url;
+  				this.guardarImagen(mascota);
   			}
   		 );
   	}	
   }
 
   private guardarImagen(imagen: any){
-  	this.af.list(`/${ this.CARPETA_IMAGENES}`).push(imagen);
+    console.log(imagen, "servicio")
+  	this.af.list(`Mascotas`).push(imagen);
   }
 
 }

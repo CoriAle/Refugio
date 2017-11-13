@@ -18,5 +18,10 @@ export class VacunaService {
 	  	let itemsRef = this.db.list('Vacunas');
 	      itemsRef.update( key$,vacuna);
   	}
+    getVacunas () {
+    return this.db.list(`Vacunas`).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    })
+  }
 
 }
