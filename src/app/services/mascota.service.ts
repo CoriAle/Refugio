@@ -35,7 +35,7 @@ export class MascotaService {
   				this.guardarImagen(mascota);
   			}
   		 );
-  	}	
+  	}
   }
 
   private guardarImagen(imagen: any){
@@ -45,7 +45,7 @@ export class MascotaService {
 
   getMascotas(){
 
-    return this.af.list(`Vacunas`).snapshotChanges().map(changes => {
+    return this.af.list(`Mascotas`).snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }).mergeMap((tours:any) => {
 
@@ -73,5 +73,6 @@ export class MascotaService {
         });
 
   }
+
 
 }

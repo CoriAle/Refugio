@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MascotaService } from '../../../../services/mascota.service';
-mport {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
+import {Observable} from "rxjs/Observable";
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
