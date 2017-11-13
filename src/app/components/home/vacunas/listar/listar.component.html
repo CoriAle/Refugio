@@ -1,15 +1,15 @@
-<div class="text-center">
+<div class="text-center animated fadeIn slow">
   <div class="row">
     <div class="col-12">
-    <a style="color:white;" href="" class="btn btn-success btn-lg float-right">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-      <i class="fa fa-medkit fa-2x" aria-hidden="true"></i>
+    <a style="color:white;"  [routerLink]="['../nueva']" class="btn btn-success btn-lg float-right">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      <i class="fa fa-medkit " aria-hidden="true"></i>
 
     </a>
   </div>
 </div>
 
-<table class="table table-striped table-bordered col-12 mt-5">
+<table class="table table-striped table-bordered col-12 mt-5 animated fadeIn slow">
     <thead>
       <tr>
         <td>#</td>
@@ -20,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let vacuna of items | async; let i = index">
+      <tr *ngFor="let vacuna of items | async; let i = index" class="animated fadeIn slow">
         <td>{{i+1}}</td>
         <td>{{ vacuna.nombre }}</td>
         <td>{{ vacuna.fecha }}</td>

@@ -1,6 +1,9 @@
 <div class="col-md-10 offset-1">
   <div class="card">
     <div class="card-block p-5">
+    <div class="alert alert-success m-2 animated fadeIn slow" role="alert" *ngIf="alerta">
+      <strong>Vacuna actualizada</strong> 
+    </div>
       <form [formGroup]="forma"
             type="post"
             enctype= "multipart/form-data"

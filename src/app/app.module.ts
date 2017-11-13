@@ -36,6 +36,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 //environment
 import { environment } from '../environments/environment';
+import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { environment } from '../environments/environment';
     ListarComponent,
     MascotasComponent,
     VacunasComponent,
-    AdopcionComponent
+    AdopcionComponent,
+    NgDropFilesDirective
   ],
   imports: [
     BrowserModule,

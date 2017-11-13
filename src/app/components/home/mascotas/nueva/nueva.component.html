@@ -1,3 +1,29 @@
-<p>
-  nueva works!
-</p>
+<div class="row">
+	<div class="col-md-4">
+		<h3>Seleccione la foto</h3>
+		<div 	NgDropFiles 
+				[ngClass] = "{'file-over': estaSobreDropZone}"
+				(archivoSobre) ="archivoSobreDropZone($event)"
+				(archivoDrop) = "archivoDrop($event)" 
+				 [archivos]="archivos"
+				class="well drop-zone">
+			<h4>Suelta la imágen aquí</h4>
+			<img src="/assets/img/drop-images.png">
+		</div>
+	</div>
+	<div class="col-md-8" style="margin-bottom: 40px">
+		<h3>Cargar Archivos</h3>
+		<button type="button" class="btn btn-success"
+			(click)="cargarImagenesFirebase()"
+			[disabled]= "archivos.length == 0 || !permiteCargar">
+			Cargar
+		</button>
+		<button type="button" class="btn btn-danger"
+			(click)="limpiarArchivos()"
+			>
+			Cancelar
+		</button>
+
+	</div>
+	
+</div>

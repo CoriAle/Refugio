@@ -1,3 +1,42 @@
-<p>
-  listar works!
-</p>
+<div class="text-center animated fadeIn slow">
+  <div class="row">
+    <div class="col-12">
+    <a style="color:white;" [routerLink]="['../nueva']" class="btn btn-success btn-lg float-right">
+        <i class="fa fa-plus " aria-hidden="true"></i>
+     	<i class="fa fa-address-card-o" aria-hidden="true"></i>
+
+    </a>
+  </div>
+</div>
+
+<table class="table table-striped table-bordered col-12 mt-5 animated fadeIn slow">
+    <thead>
+      <tr>
+        <td>#</td>
+        <td><h5>Nombre</h5></td>
+        <td><h5>Apellidos</h5></td>
+        <td><h5>Correo electrónico</h5></td>
+        <td><h5>Dirección</h5></td>
+         <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let adopcion of items | async; let i = index" class="animated fadeIn slow">
+        <td>{{i+1}}</td>
+        <td>{{ adopcion.nombre }}</td>
+        <td>{{ adopcion.apellido }}</td>
+        <td>{{ adopcion.correo }}</td>
+        <td>{{ adopcion.direccion }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['../editar', adopcion.key]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        </td>
+        <td>
+          <a  class="btn btn-danger" href="{% url 'mascota:vacuna_eliminar' id_vacuna=vacuna.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+        </td>
+      </tr>
+      <tr >
+      <h2 *ngIf="!items" class="text-center">No hay registros que mostrar</h2>
+    <tr>
+    </tbody>
+  </table>
+</div>

@@ -1,3 +1,104 @@
-<p>
-  nueva works!
-</p>
+<div class="col-md-10 offset-1">
+  <div class="card">
+    <div class="card-block p-5">
+    <div class="alert alert-success m-2 animated fadeIn slow" role="alert" *ngIf="alerta">
+      <strong>Persona nueva guardada</strong> 
+    </div>
+		<form [formGroup]="forma"
+	        type="post"
+	        enctype= "multipart/form-data"
+	        (ngSubmit)="guardar()">
+	     	<h2><em class="fa fa-medkit "></em> Nueva vacuna</h2>
+			<br>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
+		    <label for="formGroupLogin">Nombre</label>
+		    <input  type="text" class="form-control" id="formGroupLogin" placeholder="Nombre"
+	              formControlName="nombre">
+	      	<div
+		        *ngIf="forma.get('nombre').errors?.required && forma.get('nombre').touched"
+		        class="form-control-feedback">
+		        El nombre es necesario
+	     	 </div>
+		  </div>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['apellido'].valid  && forma.controls['apellido'].touched}">
+		    <label for="formGroupLogin">Apellido</label>
+		    <input  type="text" class="form-control" id="formGroupLogin" placeholder="apellido"
+	              formControlName="apellido">
+	      	<div
+		        *ngIf="forma.get('apellido').errors?.required && forma.get('apellido').touched"
+		        class="form-control-feedback">
+		        El apellido es necesario
+	     	 </div>
+		  </div>
+		  <!--Fin Correo-->
+			  <div  class="form-group"
+	         [ngClass]="{'has-danger': !forma.controls['edad'].valid  && forma.controls['edad'].touched}">
+		    <label for="formGroupLogin">Edad</label>
+		    <input type="number" class="form-control" id="formGroupLogin" 
+	             formControlName="edad">
+	      <div
+	        *ngIf="forma.get('edad').errors?.required && forma.get('edad').touched"
+	        class="form-control-feedback">
+	        La edad  es requerida
+
+	      </div>
+	      
+		  </div>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['correo'].valid  && forma.controls['correo'].touched}">
+		    <label for="formGroupLogin">Correo electrónico</label>
+		    <input  type="email" class="form-control" id="formGroupLogin" placeholder="Correo"
+	              formControlName="correo">
+	      	<div
+		        *ngIf="forma.get('correo').errors?.required && forma.get('correo').touched"
+		        class="form-control-feedback">
+		        El correo es necesario
+	     	 </div>
+	     	 <div
+		        *ngIf="forma.get('correo').errors?.pattern && forma.get('correo').touched"
+		        class="form-control-feedback">
+		        Ingrese un correo electrónico válido
+	     	 </div>
+		  </div>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['direccion'].valid  && forma.controls['direccion'].touched}">
+		    <label for="formGroupLogin">Dirección</label>
+		    <input  type="text" class="form-control" id="formGroupLogin" placeholder="Direccion"
+	              formControlName="direccion">
+	      	<div
+		        *ngIf="forma.get('direccion').errors?.required && forma.get('direccion').touched"
+		        class="form-control-feedback">
+		        El direccion es necesario
+	     	 </div>
+		  </div>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['num_mascotas'].valid  && forma.controls['num_mascotas'].touched}">
+		    <label for="formGroupLogin">Número de mascotas</label>
+		    <input  type="number" class="form-control" id="formGroupLogin" 
+	              formControlName="num_mascotas">
+	      	<div
+		        *ngIf="forma.get('num_mascotas').errors?.required && forma.get('num_mascotas').touched"
+		        class="form-control-feedback">
+		        El número de mascotas es necesario
+	     	 </div>
+		  </div>
+		  <div  class="form-group" id="ControlCorreo"
+	          [ngClass]="{'has-danger': !forma.controls['razon'].valid  && forma.controls['razon'].touched}">
+		    <label for="formGroupLogin">Razón</label>
+		    <textarea type="text" class="form-control" id="formGroupLogin" placeholder="Razón"
+	              formControlName="razon"> </textarea> 
+	      	<div
+		        *ngIf="forma.get('razon').errors?.required && forma.get('razon').touched"
+		        class="form-control-feedback">
+		        El razón es necesario
+	     	 </div>
+		  </div>
+		 
+		  <button type="submit" class="btn btn-primary float-right">Guardar</button>
+
+		</form>
+		</div>
+	</div>
+</div>
