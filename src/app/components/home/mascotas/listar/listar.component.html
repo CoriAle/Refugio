@@ -7,7 +7,7 @@
         <p class="card-text"><strong>Fecha de rescate:</strong> {{mascota.fecha_rescate}}</p>
 		    <a href="#" class="btn btn-primary float-right">Ver más</a>
         <a  class="btn btn-default float-left" href="{% url 'mascota:vacuna_eliminar' id_vacuna=vacuna.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-        <a class="btn btn-default float-left" [routerLink]="['../editar', vacuna.key]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a class="btn btn-default float-left" [routerLink]="['../editar', mascota.key]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       </div>
 </div>
 	</div>
