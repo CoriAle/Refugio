@@ -3,7 +3,8 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { FileItem } from '../models/file-item';
-
+import {Observable} from "rxjs/Observable";
+import 'rxjs/Rx';
 
 import * as firebase from "firebase"
 @Injectable()
@@ -40,6 +41,37 @@ export class MascotaService {
   private guardarImagen(imagen: any){
     console.log(imagen, "servicio")
   	this.af.list(`Mascotas`).push(imagen);
+  }
+
+  getMascotas(){
+
+    return this.af.list(`Vacunas`).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }).mergeMap((tours:any) => {
+
+            // The array of tours is going to be mapped to an observable,
+            // so mergeMap is used.
+
+            return Observable.forkJoin(
+
+                // Map the tours to the array of observables that are to
+                // be joined. Note that forkJoin requires the observables
+                // to complete, so first is used.
+
+                tours.map((tour:any) => this.af
+                    .object(`/Proveedores/${tour.Proveedor}/nombre`).valueChanges().first()
+                ),
+
+                // Use forkJoin's results selector to match up the result
+                // values with the tours.
+
+                (...values) => {
+                    tours.forEach((tour, index) => { tour.Proveedor = values[index]; });
+                    return tours;
+                }
+            );
+        });
+
   }
 
 }
