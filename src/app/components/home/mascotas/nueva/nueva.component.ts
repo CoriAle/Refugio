@@ -4,6 +4,7 @@ import  {MascotaService} from '../../../../services/mascota.service'
 import  {AdopcionService} from '../../../../services/adopcion.service'
 import  {VacunaService} from '../../../../services/vacuna.service'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/Rx';
 @Component({
@@ -20,13 +21,18 @@ export class NuevaMComponent implements OnInit {
 	alerta:boolean = false;
    items: Observable<any[]>;
    vacunas: Observable<any[]>;
-   imageSrc:any;
- 
+   imageSrc:string = "";
+   mascota: any;
+   id: any;
+   cancelar: boolean = false;
   constructor(private _mascota: MascotaService, private _adopcion: AdopcionService,
-                private _vacuna: VacunaService) {
+                private _vacuna: VacunaService,  private router: Router,  public activatedRoute: ActivatedRoute) {
+
+
   		  this.items = this._adopcion.getPersonas();
         this.vacunas =  this._vacuna.getVacunas();
       	this.forma = new FormGroup({
+
 				      'nombre': new FormControl('', Validators.required),
 				      'genero': new FormControl('Femenino', Validators.required),
 				      'edad': new FormControl('', Validators.required),
@@ -34,6 +40,30 @@ export class NuevaMComponent implements OnInit {
 				      'persona': new FormControl('', Validators.required),
 				      'vacuna': new FormControl('', Validators.required),
     	});
+        this.activatedRoute.params.map(par=> par.id ).subscribe(p=>{
+           console.log(p, "p");
+           this.id = p;
+
+         if(this.id){
+              _mascota.getMascota(p).subscribe(data=>{
+              console.log(data);
+              this.mascota = data;
+              this.cancelar = true;
+                this.imageSrc =this.mascota.imagen; 
+               this.forma = new FormGroup({
+              'nombre': new FormControl(this.mascota.nombre, Validators.required),
+              'genero': new FormControl(this.mascota.genero, Validators.required),
+              'edad': new FormControl(this.mascota.edad, Validators.required),
+              'fecha_rescate': new FormControl(this.mascota.fecha_rescate,  Validators.required, ),
+              'persona': new FormControl(this.mascota.persona, Validators.required),
+              'vacuna': new FormControl(this.mascota.vacuna, Validators.required),
+      });
+          },
+          error=>{
+            console.error(error);
+          });
+         }
+    });
    }
 
   ngOnInit() {
@@ -45,11 +75,32 @@ export class NuevaMComponent implements OnInit {
   }
   guardar(){
     this.permiteCargar = false;
-    console.log(this.forma.value);
-    let mascota = this.forma.value;
-    mascota.imagen = "f";
-    console.log(mascota);
-    this._mascota.cargar_imagenes_firebase(this.archivos, mascota)
+    this.alerta = true;
+      console.log(this.forma.value);
+      if(!this.id){
+          console.log(this.forma.value);
+          let mascota = this.forma.value;
+          mascota.imagen = "f";
+          console.log(mascota);
+          this._mascota.cargar_imagenes_firebase(this.archivos, mascota)
+    }
+    else{
+      let mascota = this.forma.value;
+      if(this.cancelar){
+         
+         
+          mascota.imagen = this.mascota.imagen;
+          this._mascota.update(this.id,mascota);
+      }
+      else{
+         mascota.imagen = "";
+          this._mascota.updateImagen(this.archivos, mascota, this.id)
+      }
+    
+     }
+      setTimeout(()=>{this.alerta = false;
+         this.router.navigate(['./home/mascota/listar']);
+      },6000);
   }
   limpiarArchivos(){
   	this.archivos = [];

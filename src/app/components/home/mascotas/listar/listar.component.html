@@ -1,14 +1,68 @@
-<div class="row">
-	<div class="col-md-4" *ngFor="let mascota of items | async; let i = index">
-		<div class="card my-5 py-3" style="width: 20rem;"  >
-		  <img class="card-img-top" [src]="mascota.imagen" alt="Card image cap">
+
+ <div class="row mb-5">
+    <div class="col-12">
+    <a style="color:white;"  [routerLink]="['../nueva']" class="btn btn-success btn-lg float-right">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      <i class="fa fa-paw " aria-hidden="true"></i>
+
+    </a>
+  </div>
+</div>
+
+<div class="card-columns animated fadeIn slow" >
+	<div class="animated fadeIn slow" *ngFor="let mascota of items | async; let i = index">
+		<div class="card  pb-3 nimated fadeIn slow" style="width: 100%;"  >
+		 <img 
+		      	class="card-img-top animated fadeIn slow" 
+		      	[src]="mascota.imagen" 
+		      	alt="Card image cap" style="width:100%" >
 		  <div class="card-block p-3">
+		      
 		    <h4 class="card-title">{{mascota.nombre}}</h4>
-        <p class="card-text"><strong>Fecha de rescate:</strong> {{mascota.fecha_rescate}}</p>
-		    <a href="#" class="btn btn-primary float-right">Ver más</a>
-        <a  class="btn btn-default float-left" href="{% url 'mascota:vacuna_eliminar' id_vacuna=vacuna.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-        <a class="btn btn-default float-left" [routerLink]="['../editar', mascota.key]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+	        <p class="card-text">
+	        	<strong>Fecha de rescate:</strong> 
+	        	{{mascota.fecha_rescate}}
+	        </p>
+			<a [routerLink]="['../detalle', mascota.key]" class="btn btn-primary float-right">
+				Ver más
+			</a>
+	        <button type="button" class="btn btn-link float-left m-0 py-0 px-1" 
+	        data-toggle="modal" data-target="#exampleModalLong"
+	        (click)="seleccionado = mascota.key">
+	        	<i class="fa fa-trash-o" aria-hidden="true"></i>
+	        </button>
+	         <a  class="btn btn-default float-left m-0 py-0 px-1" 
+	         		[routerLink]="['../editar', mascota.key]">
+	        	<i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+	        </a>
+      </div>
       </div>
 </div>
-	</div>
 </div>
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Desea eleminar este elemento?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="borrar()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

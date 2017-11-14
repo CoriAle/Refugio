@@ -23,5 +23,12 @@ export class VacunaService {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     })
   }
+    eliminar(key){
+      const itemsRef = this.db.list('Vacunas');
+  // to get a key, check the Example app below
+  console.log(key);
+    itemsRef.remove(key);
+    }
+
 
 }

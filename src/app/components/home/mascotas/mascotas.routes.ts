@@ -3,7 +3,8 @@ import { EditarMComponent } from './editar/editar.component';
 import { NuevaMComponent } from './nueva/nueva.component';
 import { ListarMComponent } from './listar/listar.component';
 export const MASCOTA_ROUTES: Routes = [
-  { path: 'editar', component: EditarMComponent },
+  { path: 'editar/:id', component: NuevaMComponent },
+    { path: 'detalle/:id', component: EditarMComponent },
   { path: 'nueva', component: NuevaMComponent },
  { path: 'listar', component: ListarMComponent },
 

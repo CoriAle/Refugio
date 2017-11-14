@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-block p-5">
     <div class="alert alert-success m-2 animated fadeIn slow" role="alert" *ngIf="alerta">
-      <strong>Persona nueva guardada</strong> 
+      <strong>Mascota guardada</strong> 
     </div>
 		<form [formGroup]="forma"
 	        type="post"
@@ -10,6 +10,7 @@
 	        (ngSubmit)="guardar()">
 	     	<h2><em class="fa fa-medkit "></em> Nueva vacuna</h2>
 			<br>
+			 
 		  <div  class="form-group" id="ControlCorreo"
 	          [ngClass]="{'has-danger': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
 		    <label for="formGroupLogin">Nombre</label>
@@ -85,7 +86,7 @@
 		    <label for="formGroupLogin">Vacuna</label>
 		    <select multiple class="form-control" id="formGroupLogin" 
 	              formControlName="vacuna">
-              		<option [value]="item.key" 
+              		<option [value]=" item.key" 
               			*ngFor="let item of vacunas| async">
               			{{item.nombre}} 
               		</option>
@@ -98,8 +99,11 @@
 		  </div>
 		 <!-- Comienzo Control de imágenes-->
 		 <div class="form-group">
+		 
+		 <div>
+		 	
 		 <label >Seleccione la foto</label>
-				<div class="col-md-6 offset-3">
+				<div class="col-md-6 offset-3 animated fadeIn slow"  *ngIf="!cancelar">
 					
 					
 					<div 	NgDropFiles 
@@ -124,16 +128,34 @@
 						Cancelar
 					</button>
 					-->
+					</div>
 				</div>
+		 </div>
+
+		 <div *ngIf="imageSrc != '' && cancelar" class="col-md-6 offset-3 animated fadeIn slow">
+		 	<img [src]="imageSrc" style="width:100%">
+		 	
+		 </div>
+		 <div  *ngIf="imageSrc != ''">
+			 <a 
+			 	class="btn btn-link float-left m-0 py-0 px-1" 
+		        (click)="cancelar = !cancelar" 	>
+		        	<i  class="fa" 
+		        		 [ngClass]="{'fa-pencil-square-o': cancelar,
+		        		 'fa-times-circle': !cancelar }"
+		        		 aria-hidden="true"></i>
+		        </a> 
 				</div>
 			
-			
-			</div>
-		  <button 
+		 </div>
+		 <button 
 			  type="submit" 
 			  class="btn btn-primary float-right"
-			 [disabled]= "!forma.valid || archivos.length == 0 || !permiteCargar"
-		  >Guardar
+			 [disabled]= "!forma.valid || (!cancelar && (archivos.length == 0 || !permiteCargar))"
+		  >
+		  <i *ngIf="alerta" class="fa fa-spinner fa-spin fa-fw"></i>
+			<span class="sr-only">Loading...</span>
+		   Guardar
 		  </button>
 
 		</form>

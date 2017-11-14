@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import {Observable} from "rxjs/Observable";
+import { VacunaService } from '../../../../services/vacuna.service';
 import 'rxjs/Rx';
 @Component({
   selector: 'app-listar',
@@ -9,7 +10,8 @@ import 'rxjs/Rx';
 })
 export class ListarVComponent implements OnInit {
 	 items: Observable<any[]>;
-  constructor(public db: AngularFireDatabase) { 
+   seleccionado:any;
+  constructor(public db: AngularFireDatabase, private _vacuna: VacunaService) { 
   		 this.items = this.getVacunas();
   }
 
@@ -43,5 +45,7 @@ getVacunas () {
 }
   ngOnInit() {
   }
-
+ borrar(){
+    this._vacuna.eliminar(this.seleccionado);
+  }
 }
