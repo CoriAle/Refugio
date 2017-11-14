@@ -3,9 +3,14 @@ import  {FileItem} from '../../../../models/file-item'
 import  {MascotaService} from '../../../../services/mascota.service'
 import  {AdopcionService} from '../../../../services/adopcion.service'
 import  {VacunaService} from '../../../../services/vacuna.service'
+import  {AuthService} from '../../../../services/auth.service'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Observable} from "rxjs/Observable";
+import * as _ from 'lodash';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 import 'rxjs/Rx';
 @Component({
   selector: 'app-nueva',
@@ -26,8 +31,21 @@ export class NuevaMComponent implements OnInit {
    id: any;
    cancelar: boolean = false;
   constructor(private _mascota: MascotaService, private _adopcion: AdopcionService,
-                private _vacuna: VacunaService,  private router: Router,  public activatedRoute: ActivatedRoute) {
-
+                private _vacuna: VacunaService,  private router: Router, 
+                 public activatedRoute: ActivatedRoute, private auth: AuthService) {
+        
+            auth.user.map(user => {
+                  /// Set an array of user roles, ie ['admin', 'author', ...]
+              
+                  return  _.has(_.get(user, 'roles'), 'admin')
+                })
+                .subscribe((authorized )=>{
+                     if (!authorized) {
+                    
+                    this.router.navigate(['/']);
+                   }
+                })
+         
 
   		  this.items = this._adopcion.getPersonas();
         this.vacunas =  this._vacuna.getVacunas();

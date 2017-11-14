@@ -11,7 +11,7 @@ export class ListarMComponent implements OnInit {
 
   items: Observable<any[]>;
   seleccionado: any;
-  constructor(private _mascota: MascotaService) {
+  constructor(public _mascota: MascotaService) {
   	 this.items = this._mascota.getMascotas();
 
   }

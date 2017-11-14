@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AuthService } from '../../../services/auth.service';
+ import {Router, ActivatedRoute } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitleComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth: AuthService, private router: Router, public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
+  }
+   salir(){
+  	this.auth.signOut();
+  	this.router.navigate(['./log']);
   }
 
 }

@@ -24,7 +24,7 @@ import { AdopcionComponent } from './components/home/adopcion/adopcion.component
 import { MascotaService } from './services/mascota.service';
 import { VacunaService } from './services/vacuna.service';
 import { AdopcionService } from './services/adopcion.service';
-
+import { AuthService } from './services/auth.service';
 
 //Routes
 import { APP_ROUTING } from './app.routes';
@@ -37,6 +37,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 //environment
 import { environment } from '../environments/environment';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
+import { LogueoComponent } from './components/logueo/logueo.component';
+import { LoginComponent } from './components/logueo/login/login.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     MascotasComponent,
     VacunasComponent,
     AdopcionComponent,
-    NgDropFilesDirective
+    NgDropFilesDirective,
+    LogueoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,8 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     MascotaService ,
     VacunaService,
     AdopcionService,
-    AngularFireAuth 
+    AngularFireAuth,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

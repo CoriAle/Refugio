@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Http, Headers } from '@angular/http';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AuthService } from './auth.service';
 import { FileItem } from '../models/file-item';
 import {Observable} from "rxjs/Observable";
+import * as _ from 'lodash'
 import 'rxjs/Rx';
 
 import * as firebase from "firebase"
@@ -11,9 +13,18 @@ import * as firebase from "firebase"
 export class MascotaService {
   URL:string = "https://proyecto-5ded8.firebaseio.com/Mascotas";
 	private CARPETA_IMAGENES: string = 'img';
-  constructor(public af: AngularFireDatabase,   private http:Http) { }
+   userRoles: Array<string>; 
+  constructor(public af: AngularFireDatabase,   private http:Http, private auth: AuthService) { 
+    auth.user.map(user => {
+                  /// Set an array of user roles, ie ['admin', 'author', ...]
+                  return this.userRoles = _.keys(_.get(user, 'roles'))
+                })
+                .subscribe(()=>{
+                })
+  }
 
   listaUltimasImagenes(numberoImagenes: number){
+
   	return this.af.list(`/${ this.CARPETA_IMAGENES }`)
   }
 
@@ -44,7 +55,7 @@ export class MascotaService {
   }
 
   getMascotas(){
-
+    console.log(this.userRoles, "dd");
     return this.af.list(`Mascotas`).snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }).mergeMap((tours:any) => {
@@ -148,15 +159,26 @@ export class MascotaService {
             );
         })
   }
-
+  get canEdit(): boolean {
+    const allowed = ['admin']
+    return this.matchingRole(allowed)
+  }
+  private matchingRole(allowedRoles): boolean {
+      return !_.isEmpty(_.intersection(allowedRoles, this.userRoles))
+    }
   getMascota(key$: string){
       let url =`${this.URL}/${key$}.json`;
       return this.http.get(url)
         .map(res=>res.json())
     }
     update(key$: string, vacuna:any){
+       if ( this.canEdit ) {
       let itemsRef = this.af.list('Mascotas');
         itemsRef.update( key$,vacuna);
+      }
+      else{
+        console.error('acceso negado')
+      }
     }
     updateImagen(archivos: FileItem[], mascota: any, key$: string){
         console.log(archivos);
@@ -179,10 +201,15 @@ export class MascotaService {
     }
     }
     eliminar(key){
+     if ( this.canEdit ) {
       const itemsRef = this.af.list('Mascotas');
-  // to get a key, check the Example app below
-  console.log(key);
-    itemsRef.remove(key);
+      // to get a key, check the Example app below
+      console.log(key);
+       itemsRef.remove(key);
+     }
+     else{
+       console.error('Denegado')
+     }
     }
 
 }

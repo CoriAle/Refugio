@@ -1,15 +1,16 @@
 
  <div class="row mb-5">
     <div class="col-12">
-    <a style="color:white;"  [routerLink]="['../nueva']" class="btn btn-success btn-lg float-right">
+    <a  *ngIf="_mascota.canEdit"
+    	style="color:white;"  [routerLink]="['../nueva']" class="btn btn-success btn-lg float-right">
         <i class="fa fa-plus" aria-hidden="true"></i>
       <i class="fa fa-paw " aria-hidden="true"></i>
 
     </a>
   </div>
 </div>
-
-<div class="card-columns animated fadeIn slow" >
+<!--style="background-color:rgba(218, 211, 211, 0.28);;"-->
+<div class="card-columns animated fadeIn slow p-1" >
 	<div class="animated fadeIn slow" *ngFor="let mascota of items | async; let i = index">
 		<div class="card  pb-3 nimated fadeIn slow" style="width: 100%;"  >
 		 <img 
@@ -29,10 +30,12 @@
 			</a>
 	        <button type="button" class="btn btn-link float-left m-0 py-0 px-1" 
 	        data-toggle="modal" data-target="#exampleModalLong"
+	         *ngIf="_mascota.canEdit"
 	        (click)="seleccionado = mascota.key">
 	        	<i class="fa fa-trash-o" aria-hidden="true"></i>
 	        </button>
-	         <a  class="btn btn-default float-left m-0 py-0 px-1" 
+	         <a  class="btn btn-default float-left m-0 py-0 px-1"
+	         		 *ngIf="_mascota.canEdit" 
 	         		[routerLink]="['../editar', mascota.key]">
 	        	<i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
 	        </a>

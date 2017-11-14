@@ -5,18 +5,19 @@
             </div>
 
             <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right"><a class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            
 
-              <div class="username mt-1">
-                <h4 class="mb-1"></h4>
-
-                <h6 class="text-muted">
-                    Administrador
-                </h6>
+              <div class="username mt-1" *ngIf="afAuth.authState | async; let user">
+                <h4 class="mb-1">{{ user.displayName }}</h4>
+              
+                
               </div>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" style="margin-right: 1.5rem;" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" href="#"><em class="fa fa-user-circle mr-1"></em> View Profile</a>
-                   <a class="dropdown-item" href="#"><em class="fa fa-sliders mr-1"></em> Preferences</a>
-                   <a class="dropdown-item" href="#"><em class="fa fa-power-off mr-1"></em> Logout</a></div>
+              <div class="dropdown-menu dropdown-menu-right" style="margin-right: 1.5rem;" aria-labelledby="dropdownMenuLink">
+                   <a class="dropdown-item" (click)="salir()">
+                   <em class="fa fa-power-off mr-1">
+                     
+                   </em> Salir</a></div>
             </div>
 
             <div class="clear"></div>
