@@ -8,10 +8,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./nueva.component.css']
 })
 export class NuevaComponent implements OnInit {
-	forma: FormGroup;
-	alerta:boolean = false;
-  id:any;
-  adopcion:any;
+	public forma: FormGroup;
+	public alerta:boolean = false;
+  public id:any;
+  public adopcion:any;
   constructor(private _adopcion: AdopcionService, private router: Router,  public activatedRoute: ActivatedRoute) { 
   	this.forma = new FormGroup({
 				      'nombre': new FormControl('', Validators.required),
@@ -56,7 +56,7 @@ export class NuevaComponent implements OnInit {
 
   ngOnInit() {
   }
-  guardar(){
+  public guardar(){
       this.alerta = true;
       console.log(this.forma.value);
       if(!this.id){

@@ -9,10 +9,10 @@ import  {MascotaService} from '../../../../services/mascota.service'
   styleUrls: ['./editar.component.css']
 })
 export class EditarMComponent implements OnInit {
-	id:any;
-	mascota:any;
-	items: Observable<any[]>;
-  vacunas: Observable<any[]>;
+	public id:any;
+	public mascota:any;
+	public items: Observable<any[]>;
+  public vacunas: Observable<any[]>;
 
   constructor(private _mascota: MascotaService, private router: Router,  public activatedRoute: ActivatedRoute) { 
   	this.activatedRoute.params.map(par=> par.id ).subscribe(p=>{

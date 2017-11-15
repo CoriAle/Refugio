@@ -9,10 +9,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./editar.component.css']
 })
 export class EditarVComponent implements OnInit {
-	 forma: FormGroup;
-	  alerta:boolean = false;
-	  id:any; 
-	  vacuna:any;
+	 public forma: FormGroup;
+	  public alerta:boolean = false;
+	 public id:any; 
+	  public vacuna:any;
   constructor(private _vacuna: VacunaService, private router: Router, public activatedRoute: ActivatedRoute) { 
   	
       				this.forma = new FormGroup({
@@ -42,7 +42,7 @@ export class EditarVComponent implements OnInit {
   ngOnInit() {
   }
 
-  	guardar(){
+  	public guardar(){
       this.alerta = true;
       console.log(this.forma.value);
    		this._vacuna.update(this.id, this.forma.value);

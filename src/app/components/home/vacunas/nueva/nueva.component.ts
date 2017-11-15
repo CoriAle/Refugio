@@ -8,8 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./nueva.component.css']
 })
 export class NuevaVComponent implements OnInit {
-	 forma: FormGroup; //El formulario
-  alerta:boolean = false;
+	public forma: FormGroup; //El formulario
+  public alerta:boolean = false;
   constructor(public db: AngularFireDatabase, private router: Router) {
   		 this.forma = new FormGroup({
       'nombre': new FormControl('', Validators.required),
@@ -23,7 +23,7 @@ export class NuevaVComponent implements OnInit {
 
   ngOnInit() {
   }
-	guardar(){
+	public guardar(){
       this.alerta = true;
       console.log(this.forma.value);
       let itemsRef = this.db.list('Vacunas');

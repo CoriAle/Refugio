@@ -35,7 +35,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 //environment
-import { environment } from '../environments/environment';
+import { config } from '../config/config';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 import { LogueoComponent } from './components/logueo/logueo.component';
 import { LoginComponent } from './components/logueo/login/login.component';
@@ -66,7 +66,7 @@ import { LoginComponent } from './components/logueo/login/login.component';
     FormsModule,
     HttpModule,
     APP_ROUTING,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(config.firebase),
     AngularFireDatabaseModule,
     ReactiveFormsModule
   ],

@@ -9,8 +9,8 @@ import {Observable} from "rxjs/Observable";
 })
 export class ListarMComponent implements OnInit {
 
-  items: Observable<any[]>;
-  seleccionado: any;
+ public items: Observable<any[]>;
+  public seleccionado: any;
   constructor(public _mascota: MascotaService) {
   	 this.items = this._mascota.getMascotas();
 
@@ -19,7 +19,7 @@ export class ListarMComponent implements OnInit {
   ngOnInit() {
   }
 
-  borrar(){
+  public borrar(){
     this._mascota.eliminar(this.seleccionado);
   }
 

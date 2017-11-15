@@ -9,8 +9,8 @@ import 'rxjs/Rx';
   styleUrls: ['./listar.component.css']
 })
 export class ListarVComponent implements OnInit {
-	 items: Observable<any[]>;
-   seleccionado:any;
+	 public items: Observable<any[]>;
+   public seleccionado:any;
   constructor(public db: AngularFireDatabase, private _vacuna: VacunaService) { 
   		 this.items = this.getVacunas();
   }
@@ -45,7 +45,7 @@ getVacunas () {
 }
   ngOnInit() {
   }
- borrar(){
+ public borrar(){
     this._vacuna.eliminar(this.seleccionado);
   }
 }

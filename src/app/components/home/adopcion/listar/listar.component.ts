@@ -8,8 +8,8 @@ import 'rxjs/Rx';
   styleUrls: ['./listar.component.css']
 })
 export class ListarComponent implements OnInit {
-	 items: Observable<any[]>;
-   seleccionado:any;
+	public  items: Observable<any[]>;
+   public seleccionado:any;
   constructor(private _adopcion: AdopcionService) {
   	 this.items = this._adopcion.getPersonas();
   	 console.log(this.items)
@@ -17,7 +17,7 @@ export class ListarComponent implements OnInit {
 
   ngOnInit() {
   }
-   borrar(){
+   public borrar(){
     this._adopcion.eliminar(this.seleccionado);
   }
 

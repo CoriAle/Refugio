@@ -13,7 +13,7 @@ export class TitleComponent implements OnInit {
 
   ngOnInit() {
   }
-   salir(){
+   public salir(){
   	this.auth.signOut();
   	this.router.navigate(['./log']);
   }

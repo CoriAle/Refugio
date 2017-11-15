@@ -19,17 +19,17 @@ import 'rxjs/Rx';
 })
 export class NuevaMComponent implements OnInit {
 
-	estaSobreDropZone: boolean = false;
-	permiteCargar: boolean = true;
-	archivos: FileItem[] = [];
-	forma: FormGroup;
-	alerta:boolean = false;
-   items: Observable<any[]>;
-   vacunas: Observable<any[]>;
-   imageSrc:string = "";
-   mascota: any;
-   id: any;
-   cancelar: boolean = false;
+	public estaSobreDropZone: boolean = false;
+	public permiteCargar: boolean = true;
+	public archivos: FileItem[] = [];
+	public forma: FormGroup;
+	public alerta:boolean = false;
+   public items: Observable<any[]>;
+   public vacunas: Observable<any[]>;
+   public imageSrc:string = "";
+   public mascota: any;
+   public id: any;
+   public cancelar: boolean = false;
   constructor(private _mascota: MascotaService, private _adopcion: AdopcionService,
                 private _vacuna: VacunaService,  private router: Router, 
                  public activatedRoute: ActivatedRoute, private auth: AuthService) {
@@ -91,7 +91,7 @@ export class NuevaMComponent implements OnInit {
   	
   	//this._mascota.cargar_imagenes_firebase(this.archivos)
   }
-  guardar(){
+ public guardar(){
     this.permiteCargar = false;
     this.alerta = true;
       console.log(this.forma.value);
@@ -120,15 +120,15 @@ export class NuevaMComponent implements OnInit {
          this.router.navigate(['./home/mascota/listar']);
       },6000);
   }
-  limpiarArchivos(){
+  public limpiarArchivos(){
   	this.archivos = [];
   	this.permiteCargar = true;
 
   }
-  archivoSobreDropZone(e:boolean){
+  public archivoSobreDropZone(e:boolean){
   	this.estaSobreDropZone = e;
   }
-	archivoDrop(e){
+	public archivoDrop(e){
 		console.log(e);
      var reader = new FileReader();
 	}
