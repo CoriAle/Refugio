@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-nueva',
   templateUrl: './nueva.component.html',
@@ -9,7 +10,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class NuevaVComponent implements OnInit {
 	 forma: FormGroup; //El formulario
   alerta:boolean = false;
-  constructor(public db: AngularFireDatabase) {
+  constructor(public db: AngularFireDatabase, private router: Router) {
   		 this.forma = new FormGroup({
       'nombre': new FormControl('', Validators.required),
       'funcion': new FormControl('', Validators.required),
@@ -27,6 +28,9 @@ export class NuevaVComponent implements OnInit {
       console.log(this.forma.value);
       let itemsRef = this.db.list('Vacunas');
       itemsRef.push(this.forma.value);
-      setTimeout(()=>{this.alerta = false;},3000);
+      setTimeout(()=>{
+        this.alerta = false;
+        this.router.navigate(['./home/vacuna/listar']);
+      },3000);
 	}
 }
